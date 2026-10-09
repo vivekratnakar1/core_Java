@@ -27,8 +27,7 @@ public class StringPool_9Oct26 {
 			
 			String a4 = "KodewalaAcademy";
 			
-			System.out.println(a4 == a3.intern());
-			
+			System.out.println(a4 == a3.intern());		
 			
 		}
 		
