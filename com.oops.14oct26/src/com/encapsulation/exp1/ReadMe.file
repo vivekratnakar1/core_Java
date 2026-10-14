@@ -1,0 +1,20 @@
+Here is the complete text extracted directly from the task document in your image:
+
+Task: Write a program to manage the fund transfer
+
+Attribute:
+1. Account holder Name
+2. Account number
+3. Balance
+4. Amount
+
+Requirement:
+
+1. User should be able to transfer the fund
+2. Othe classes should not able to modify the data directly
+3. Other classes should be able to read the balance
+4. Only positive amount transaction allowed.
+5. Transaction amount should be less than or equal to current balance
+6. Classes should be well encapsulated.
+
+Would you like me to generate a flowchart or a UML class diagram syntax based on these exact attributes and requirements?
