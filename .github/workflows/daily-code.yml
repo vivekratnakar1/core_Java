@@ -33,7 +33,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
-          START_DATE: '2026-10-19'
+          START_DATE: '2026-10-18'
         run: python scripts/generate_daily.py
 
       - name: Commit generated code
