@@ -9,7 +9,7 @@ from openai import OpenAI
 
 ROOT = Path(__file__).resolve().parent.parent
 START_DATE = date.fromisoformat(
-    os.getenv("START_DATE", "2026-10-19")
+    os.getenv("START_DATE", "2026-10-18")
 )
 
 today = date.today()
