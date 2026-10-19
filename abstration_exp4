@@ -1,0 +1,33 @@
+//The abstract class hides details and only exposes what is needed
+abstract class OrderSystem {
+ // 1. Exposed to other classes to place an order
+ public void placeOrder(String item) {
+     System.out.println("Ordering: " + item);
+     
+     // 2. Hidden core steps run automatically behind the scenes
+     checkStock();
+     takePayment();
+ }
+
+ // 3. Hidden core functionalities
+ private void checkStock() {
+     System.out.println("Checking stock... Done.");
+ }
+
+ private void takePayment() {
+     System.out.println("Processing payment... Done.");
+ }
+}
+//Concrete class used to run the system
+class StoreApp extends OrderSystem {
+}
+
+//External class interacting with the system
+public class Main {
+	public static void main(String[] args) {
+		OrderSystem app = new StoreApp();
+
+		// Other classes only see and use this single method
+		app.placeOrder("Phone");
+	}
+}
