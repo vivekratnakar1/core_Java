@@ -1,0 +1,90 @@
+public class Account {
+
+    // STEP 1: Public method exposed to other classes
+    // This method controls the complete account-opening workflow.
+	
+    public void openAccount(String name, String address) {
+
+        // STEP 2: Validate customer's name and address
+        if (validateNameAndAddress(name, address)) {
+
+            // STEP 3: Validate customer's PAN details
+            validatePan("ABCDE1234F");
+
+            // STEP 4: Connect to the database
+            connectToDatabase();
+
+            // STEP 5: Create User ID and Password
+            createUserIdAndPwd();
+
+            // STEP 6: Notify the customer
+            notifyUser();
+
+            // STEP 7: Complete the account-opening process
+            System.out.println("Account opened successfully!");
+
+        } else {
+
+            // Stop the workflow if name or address is invalid
+            System.out.println("Invalid name or address.");
+        }
+    }
+
+    // PRIVATE METHODS: Core functionalities are hidden
+    // Other classes cannot call these methods directly.
+
+    // STEP 2 implementation: Check name and address
+    private boolean validateNameAndAddress(String name, String address) {
+
+        System.out.println("Validating name and address...");
+
+        return name != null && !name.trim().isEmpty()
+                && address != null && !address.trim().isEmpty();
+    }
+
+    // STEP 3 implementation: Validate PAN
+    private void validatePan(String pan) {
+
+        System.out.println("Validating PAN: " + pan);
+    }
+
+    // STEP 4 implementation: Database connection
+    private void connectToDatabase() {
+
+        System.out.println("Connecting to database...");
+    }
+
+    // STEP 5 implementation: Create customer credentials
+    private void createUserIdAndPwd() {
+
+        System.out.println("Creating User ID and Password...");
+    }
+
+    // STEP 6 implementation: Send notification
+    private void notifyUser() {
+
+        System.out.println("Sending account opening notification...");
+    }
+}
+
+public class AccountMgmt {
+
+    public static void main(String[] args) {
+
+        // STEP 1: Create Account class object
+        Account account = new Account();
+
+        // STEP 2: Call the only public method
+        // Account.java handles the internal workflow.
+        account.openAccount("Vivek", "Raipur, Chhattisgarh");
+
+        // The following methods are private,
+        // so they cannot be accessed from this class.
+
+        // account.validateNameAndAddress("Vivek", "Raipur");
+        // account.validatePan("ABCDE1234F");
+        // account.connectToDatabase();
+        // account.createUserIdAndPwd();
+        // account.notifyUser();
+    }
+}
