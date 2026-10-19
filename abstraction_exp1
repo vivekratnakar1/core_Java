@@ -1,0 +1,37 @@
+public class PlaceOrder {
+
+    private static final int GST = 18;
+
+    // Public method: exposed to other classes
+    public void placeOrder(String orderId, String productName, double price) {
+
+        double total = generateBill(price);
+
+        sendSms(productName, total);
+
+        addToDelivery();
+    }
+
+    // Private methods: core functionalities hidden
+
+    private void sendSms(String productName, double total) {
+
+        System.out.println("Your Order " + productName + " has Been Placed");
+        System.out.println("Your Total Price is: " + total);
+    }
+
+    private void addToDelivery() {
+
+        System.out.println("Order Placed will be delivered in 4 Days");
+    }
+
+    private double generateBill(double amount) {
+
+        double gstAmount = amount * GST / 100;
+
+        System.out.println("Amount: " + amount);
+        System.out.println("GST 18%: " + gstAmount);
+
+        return amount + gstAmount;
+    }
+}
