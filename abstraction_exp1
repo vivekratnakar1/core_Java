@@ -35,3 +35,24 @@ public class PlaceOrder {
         return amount + gstAmount;
     }
 }
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        PlaceOrder order = new PlaceOrder();
+
+        order.placeOrder("ORD101", "Laptop", 10000.0);
+
+        // Not accessible because these methods are private:
+        // order.generateBill(10000.0);
+        // order.sendSms("Laptop", 11800.0);
+        // order.addToDelivery();
+    }
+}
+
+
+
+
+
+
