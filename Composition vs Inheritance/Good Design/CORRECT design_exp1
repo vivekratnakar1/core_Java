@@ -1,0 +1,23 @@
+package com.example.delivery.composition;
+
+/**
+ * ✅ CORRECT design — behaviour is extracted into a small, focused interface.
+ *
+ * <p>Any engine implementation can be plugged into any {@link DeliveryVehicle}
+ * at construction time or swapped at runtime. Adding a new engine (e.g.
+ * {@code HybridEngine}) requires <b>zero</b> changes to existing vehicle code.
+ *
+ * <p>This is the "Strategy" pattern in action — engine is a strategy that
+ * {@link DeliveryVehicle} delegates to.
+ */
+public interface Engine {
+
+    /** Human-readable fuel / power source (e.g. "Petrol", "Electric"). */
+    String fuelType();
+
+    /** Start the engine. */
+    void start();
+
+    /** Stop the engine. */
+    void stop();
+}
