@@ -45,3 +45,11 @@ Amit
 Ankit
 Rahul
 Vivek
+================================================================================
+
+What is happening?
+- forEach() executes an action for each element.
+- filter() retains elements matching the predicate.
+- sort() accepts a comparator that determines the ordering.
+- System.out::println is a method reference, a shorthand for invoking an existing method. It is related to lambda expressions but uses different syntax.
+Notice that filter() and forEach() are used on a stream, while sort() here directly modifies the original list.
