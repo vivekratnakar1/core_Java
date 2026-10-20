@@ -1,1 +1,23 @@
-x
+class SearchEngine {
+    // Version 1: User types text into the search bar
+    void find(String queryText) {
+        System.out.println("Searching text database for titles matching: '" + queryText + "'");
+    }
+
+    // Version 2: User clicks a category badge/ID instead of typing
+    void find(int categoryId) {
+        System.out.println("Filtering catalog. Fetching items under Category Code: #" + categoryId);
+    }
+}
+
+public class AppSearch {
+    public static void main(String[] args) {
+        SearchEngine app = new SearchEngine();
+        
+        // Typing into the bar calls Version 1
+        app.find("Interstellar"); 
+        
+        // Clicking a filter button calls Version 2
+        app.find(102); // Let's say 102 stands for 'Sci-Fi'
+    }
+}
