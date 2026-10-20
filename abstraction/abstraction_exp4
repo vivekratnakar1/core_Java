@@ -1,5 +1,6 @@
 //The abstract class hides details and only exposes what is needed
 abstract class OrderSystem {
+
  // 1. Exposed to other classes to place an order
  public void placeOrder(String item) {
      System.out.println("Ordering: " + item);
