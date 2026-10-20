@@ -1,1 +1,23 @@
-x
+class OrderPayment {
+    void swipeCard(double billAmount) {
+        // Just deducting the exact bill amount
+        System.out.println("Paid exactly $" + billAmount + " in cash. Quick and simple!");
+    }
+}
+
+class PremiumCardPayment extends OrderPayment {
+    @Override
+    void swipeCard(double billAmount) {
+        // Reality check: credit cards always charge a small fee behind the scenes
+        double bankFee = billAmount * 0.03; 
+        double finalTotal = billAmount + bankFee;
+        System.out.println("Swiped Visa: Charged $" + finalTotal + " (including a sneaky 3% swipe fee).");
+    }
+}
+
+public class CoffeeShop {
+    public static void main(String[] args) {
+        OrderPayment myBill = new PremiumCardPayment();
+        myBill.swipeCard(15.50); // Buying a latte and a pastry
+    }
+}
