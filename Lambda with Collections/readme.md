@@ -1,4 +1,5 @@
  Common interview questions
+ 
 Q1. What is a lambda expression in Java?
 
 A lambda expression is a concise way to implement the single abstract method of a functional interface. It was introduced in Java 8 and is widely used with collections, streams, and functional programming.
