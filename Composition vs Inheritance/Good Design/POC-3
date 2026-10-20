@@ -1,0 +1,28 @@
+package com.example.delivery.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Orchestrates order assignment. Demonstrates that higher-level services
+ * only depend on the {@link DeliveryAgent} abstraction — never on concrete
+ * engine or vehicle types.
+ */
+public class OrderService {
+
+    private final List<DeliveryAgent> agents = new ArrayList<>();
+
+    public void registerAgent(DeliveryAgent agent) {
+        agents.add(agent);
+        System.out.println("[OrderService] Registered agent: " + agent.getName());
+    }
+
+    public void dispatch(String orderId, String address) {
+        if (agents.isEmpty()) {
+            System.out.println("[OrderService] No agents available!");
+            return;
+        }
+        // Simple round-robin for the POC
+        agents.get(0).acceptOrder(orderId, address);
+    }
+}
