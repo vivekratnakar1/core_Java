@@ -1,3 +1,4 @@
+
 class OrderPayment {
     void swipeCard(double billAmount) {
         // Just deducting the exact bill amount
