@@ -1,0 +1,20 @@
+package com.example.delivery.inheritance;
+
+/** ⚠️ Anti-pattern subclass — see {@link Vehicle} for context. */
+public class BikeVehicle extends Vehicle {
+
+    @Override
+    public void start() {
+        System.out.println("Bike engine started (petrol)");
+    }
+
+    @Override
+    public void accelerate() {
+        System.out.println("Bike accelerating...");
+    }
+
+    @Override
+    public String fuelType() {
+        return "Petrol";
+    }
+}
