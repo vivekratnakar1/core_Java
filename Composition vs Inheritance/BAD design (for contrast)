@@ -1,0 +1,21 @@
+package com.example.delivery.inheritance;
+
+/**
+ * ⚠️ THIS IS THE ANTI-PATTERN — shown only for contrast.
+ *
+ * <p>Problem: every combination of (vehicle type × engine type) requires
+ * a new subclass. Adding a Hybrid engine tomorrow means creating
+ * PetrolBike, ElectricBike, PetrolCar, ElectricCar, HybridBike, HybridCar...
+ * — a combinatorial explosion.
+ *
+ * <p>Also violates Liskov Substitution: you cannot substitute a PetrolCar
+ * for an ElectricCar if the caller expects "any car" behaviour.
+ */
+public abstract class Vehicle {
+
+    public abstract void start();
+
+    public abstract void accelerate();
+
+    public abstract String fuelType();
+}
