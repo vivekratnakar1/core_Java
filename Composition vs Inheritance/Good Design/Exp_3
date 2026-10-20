@@ -1,0 +1,26 @@
+package com.example.delivery.composition;
+
+/** Concrete strategy: a battery-powered engine. */
+public class ElectricEngine implements Engine {
+
+    private final int kwh;
+
+    public ElectricEngine(int kwh) {
+        this.kwh = kwh;
+    }
+
+    @Override
+    public String fuelType() {
+        return "Electric (" + kwh + " kWh)";
+    }
+
+    @Override
+    public void start() {
+        System.out.println("  [Engine] Electric " + kwh + " kWh motor started — silent!");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("  [Engine] Electric motor stopped.");
+    }
+}
