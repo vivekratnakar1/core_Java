@@ -1,0 +1,36 @@
+package com.core_java_abstraction1_Day31;
+
+
+//Abstract class defining the exposed contract
+abstract class OrderProcessor 
+{
+
+	// Public method exposed to other classes
+	public final void placeOrder(String item, int quantity) 
+	{
+		System.out.println("Initiating order for: " + quantity + "x " + item);
+
+		// Internal core functionalities hidden from the outside world
+		if (checkStock(item, quantity)) {
+			processPayment(item, quantity);
+			updateInventory(item, quantity);
+			System.out.println("Order placed successfully!\n");
+		} else {
+			System.out.println("Order failed: Out of stock.\n");
+		}
+	}
+
+	// Hidden core functionalities (Encapsulated/Abstracted)
+	private boolean checkStock(String item, int quantity) {
+		System.out.println("[Hidden Core] Checking warehouse stock...");
+		return true;
+	}
+
+	private void processPayment(String item, int quantity) {
+		System.out.println("[Hidden Core] Processing secure bank payment...");
+	}
+
+	private void updateInventory(String item, int quantity) {
+		System.out.println("[Hidden Core] Deducting items from inventory database...");
+	}
+}
