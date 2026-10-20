@@ -1,0 +1,47 @@
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaCollectionPOC {
+
+    public static void main(String[] args) {
+
+        List<String> employees = new ArrayList<>(
+                Arrays.asList("Vivek", "Amit", "Rahul", "Ankit")
+        );
+
+        // 1. Print all employees
+        System.out.println("All employees:");
+        employees.forEach(name -> System.out.println(name));
+
+        // 2. Filter names starting with A
+        System.out.println("\nNames starting with A:");
+        employees.stream()
+                .filter(name -> name.startsWith("A"))
+                .forEach(name -> System.out.println(name));
+
+        // 3. Sort names alphabetically
+        employees.sort((a, b) -> a.compareTo(b));
+
+        System.out.println("\nSorted employees:");
+        employees.forEach(System.out::println);
+    }
+}
+
+
+All employees:
+Vivek
+Amit
+Rahul
+Ankit
+
+Names starting with A:
+Amit
+Ankit
+
+Sorted employees:
+Amit
+Ankit
+Rahul
+Vivek
