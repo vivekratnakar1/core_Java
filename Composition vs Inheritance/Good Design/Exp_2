@@ -1,0 +1,26 @@
+package com.example.delivery.composition;
+
+/** Concrete strategy: a petrol-powered engine. */
+public class PetrolEngine implements Engine {
+
+    private final int cc;
+
+    public PetrolEngine(int cc) {
+        this.cc = cc;
+    }
+
+    @Override
+    public String fuelType() {
+        return "Petrol (" + cc + "cc)";
+    }
+
+    @Override
+    public void start() {
+        System.out.println("  [Engine] Petrol " + cc + "cc engine started — vroom!");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("  [Engine] Petrol engine stopped.");
+    }
+}
