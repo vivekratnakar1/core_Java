@@ -1,1 +1,25 @@
-x
+class BillCalculator {
+    // Version 1: You are dining alone, pay the full price directly
+    void payBill(double totalAmount) {
+        System.out.println("Paying lone total of $" + totalAmount + " directly via card.");
+    }
+
+    // Version 2: Group dinner, automatically split the costs
+    void payBill(double totalAmount, int numberOfPeople) {
+        double individualShare = totalAmount / numberOfPeople;
+        System.out.println("Bill split between " + numberOfPeople + " friends. Each person pays: $" + individualShare);
+    }
+}
+
+public class RestaurantBill {
+    public static void main(String[] args) {
+        BillCalculator counter = new BillCalculator();
+        
+        // Solo lunch call
+        counter.payBill(22.50);
+        
+        // Friday night hangout call
+        counter.payBill(120.00, 4);
+    }
+}
+
