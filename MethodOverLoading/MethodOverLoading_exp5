@@ -1,1 +1,23 @@
-x
+class PostUploader {
+    // Version 1: Upload raw photo with no edits
+    void postImage(String filename) {
+        System.out.println("Uploading " + filename + " directly to your profile timeline grid.");
+    }
+
+    // Version 2: Apply a filter to the image before posting
+    void postImage(String filename, String filterEffect) {
+        System.out.println("Applying '" + filterEffect + "' filter tuning to " + filename + "... Uploading updated copy.");
+    }
+}
+
+public class InstaUpload {
+    public static void main(String[] args) {
+        PostUploader app = new PostUploader();
+        
+        // Boring default upload
+        app.postImage("vacation_pic.jpg");
+        
+        // Enhanced aesthetics upload
+        app.postImage("selfie.png", "Retro-Vintage-Fade");
+    }
+}
