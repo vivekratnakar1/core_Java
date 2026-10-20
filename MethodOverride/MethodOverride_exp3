@@ -19,3 +19,4 @@ public class ShoppingMall {
         System.out.println("Checkout price for VIP: $" + buyer.checkout(200.00));
     }
 }
+
