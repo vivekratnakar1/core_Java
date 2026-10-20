@@ -1,0 +1,21 @@
+class RegularShopper {
+    double checkout(double cartTotal) {
+        // Giving them a tiny 5% token discount to keep them happy
+        return cartTotal * 0.95; 
+    }
+}
+
+class VIPMember extends RegularShopper {
+    @Override
+    double checkout(double cartTotal) {
+        // Black Friday deal style: VIP membership gives them a massive 25% off
+        return cartTotal * 0.75; 
+    }
+}
+
+public class ShoppingMall {
+    public static void main(String[] args) {
+        RegularShopper buyer = new VIPMember();
+        System.out.println("Checkout price for VIP: $" + buyer.checkout(200.00));
+    }
+}
