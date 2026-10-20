@@ -1,1 +1,41 @@
-x
+//Parent Class
+class PaymentProcessor {
+	
+	
+ // Generic method to be overridden
+ public void processPayment(String name, double amount) 
+ {
+     System.out.println("Processing a standard payment of $ :--"  + name + amount);
+ }
+ 
+}
+
+//Child Class (Subclass)
+class CreditCardProcessor extends PaymentProcessor
+{
+ 
+ // Overriding the parent method to provide specific logic
+ @Override
+ public void processPayment(String name, double amount)
+ {
+     System.out.println("Processing Credit Card payment of $ : --" + name + " via secure gateway." + amount);
+   }
+ 
+}
+
+//Method overriding in Java allows a subclass to provide a specific ,
+// implementation of a method that is already defined in its parent class. 
+
+//Main class to execute the PoC
+public class Main {
+ public static void main(String[] args)
+ {
+     // 1. Reference pointing to Parent object
+     PaymentProcessor standard = new PaymentProcessor();
+     standard.processPayment( "  Given tip by Vinod :", 50.0); // Runs parent method
+
+     // 2. Reference pointing to Child object (Polymorphism)
+     PaymentProcessor creditCard = new CreditCardProcessor();
+     creditCard.processPayment("  Given tip by Vinod :", 150.0); // Runs overridden child method
+ }
+}
