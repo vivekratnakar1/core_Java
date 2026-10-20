@@ -1,1 +1,23 @@
-x
+class AuthenticationGate {
+    // Version 1: Traditional credential login
+    void signIn(String email, String password) {
+        System.out.println("Verifying credentials for email: " + email + "... Logging in.");
+    }
+
+    // Version 2: Quick phone verification login
+    void signIn(long phoneNumber, int otpCode) {
+        System.out.println("Checking OTP [" + otpCode + "] dispatched to +" + phoneNumber + "... Access granted.");
+    }
+}
+
+public class UserLogin {
+    public static void main(String[] args) {
+        AuthenticationGate gate = new AuthenticationGate();
+        
+        // Laptop user typing email
+        gate.signIn("alex@email.com", "mySuperSecretPassword123");
+        
+        // Mobile user opting for OTP tracking instead
+        gate.signIn(9876543210L, 5582);
+    }
+}
