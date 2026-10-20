@@ -1,0 +1,35 @@
+package com.example.delivery.service;
+
+import com.example.delivery.composition.Deliverable;
+
+import java.util.Objects;
+
+/**
+ * A rider (delivery partner) — HAS-A {@link Deliverable}.
+ *
+ * <p>Notice another composition here: an agent <i>has</i> a vehicle,
+ * but is not a vehicle. Inheritance would be wrong (`Agent is-a Vehicle` — false).
+ */
+public class DeliveryAgent {
+
+    private final String name;
+    private final Deliverable vehicle;
+
+    public DeliveryAgent(String name, Deliverable vehicle) {
+        this.name = Objects.requireNonNull(name);
+        this.vehicle = Objects.requireNonNull(vehicle);
+    }
+
+    public void acceptOrder(String orderId, String address) {
+        System.out.println("\n[Agent " + name + "] Accepting order " + orderId);
+        vehicle.deliver(orderId, address);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Deliverable getVehicle() {
+        return vehicle;
+    }
+}
