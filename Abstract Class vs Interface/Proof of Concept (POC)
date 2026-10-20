@@ -1,0 +1,102 @@
+
+ The "Can-Do" Contracts (Interfaces)
+
+1. // Interfaces declare behaviors. They cannot hold state.
+interface Flyable {
+    void fly(); // implicitly public and abstract
+}
+
+interface Swimmable {
+    void swim();
+}
+
+=============================================================
+
+The Identity Base (Abstract Class)
+
+// Abstract class defines the core identity and holds the shared state
+abstract class Hero {
+    private String name; // Mutable instance variable
+    private int health;
+
+    // Abstract classes can have constructors to manage their state
+    public Hero(String name, int health) {
+        this.name = name;
+        this.health = health;
+    }
+
+    // Concrete method: All heroes take damage the exact same way
+    public void takeDamage(int damage) {
+        this.health -= damage;
+        System.out.println(name + " took " + damage + " damage. Health is now: " + health);
+    }
+
+    // Abstract method: Every hero attacks, but they do it uniquely
+    public abstract void attack();
+}
+
+=============================================================
+
+
+The Implementation Classes
+
+// IronMan "is a" Hero, and "can" Fly
+class IronMan extends Hero implements Flyable {
+    
+    public IronMan(String name, int health) {
+        super(name, health); // invokes abstract class constructor
+    }
+
+    @Override
+    public void attack() {
+        System.out.println("Iron Man fires a Repulsor Beam!");
+    }
+
+    @Override
+    public void fly() {
+        System.out.println("Iron Man engages thrusters and takes flight.");
+    }
+}
+
+=============================================================
+// AquaMan "is a" Hero, and "can" Swim
+class AquaMan extends Hero implements Swimmable {
+
+    public AquaMan(String name, int health) {
+        super(name, health);
+    }
+
+    @Override
+    public void attack() {
+        System.out.println("AquaMan strikes with his Trident!");
+    }
+
+    @Override
+    public void swim() {
+        System.out.println("AquaMan swims at supersonic speeds.");
+    }
+}
+
+=============================================================
+ Execution Code
+
+public class GamePOC {
+    public static void main(String[] args) {
+        // Hero ironMan = new Hero("Tony", 100); // ERROR: Cannot instantiate abstract classes directly
+        
+        IronMan tony = new IronMan("Iron Man", 100);
+        AquaMan arthur = new AquaMan("AquaMan", 120);
+
+        // Demonstrating Shared State & Concrete Behavior via Abstract Class
+        tony.takeDamage(20);
+        arthur.takeDamage(15);
+
+        // Demonstrating Polymorphic Abstract Methods
+        tony.attack();
+        arthur.attack();
+
+        // Demonstrating Interface capabilities
+        tony.fly();
+        arthur.swim();
+    }
+}
