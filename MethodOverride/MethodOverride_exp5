@@ -1,21 +1,21 @@
-class RegularShopper {
-    double checkout(double cartTotal) {
-        // Giving them a tiny 5% token discount to keep them happy
-        return cartTotal * 0.95; 
+class DumbAppliance {
+    void turnOn() {
+        // The old coffee machine or fan just goes 'click' and starts buzzing
+        System.out.println("Power relay clicked. Device is humming to life.");
     }
 }
 
-class VIPMember extends RegularShopper {
+class LivingRoomBulb extends DumbAppliance {
     @Override
-    double checkout(double cartTotal) {
-        // Black Friday deal style: VIP membership gives them a massive 25% off
-        return cartTotal * 0.75; 
+    void turnOn() {
+        // Smart lights don't just flash on; they fade in gently so they don't blind you
+        System.out.println("Fading bulb to 60% warmth. Setting the perfect movie night lighting.");
     }
 }
 
-public class ShoppingMall {
+public class SmartHome {
     public static void main(String[] args) {
-        RegularShopper buyer = new VIPMember();
-        System.out.println("Checkout price for VIP: $" + buyer.checkout(200.00));
+        DumbAppliance gadget = new LivingRoomBulb();
+        gadget.turnOn();
     }
 }
