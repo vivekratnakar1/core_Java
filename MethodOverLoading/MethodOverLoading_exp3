@@ -1,1 +1,23 @@
-x
+class AlarmManager {
+    // Version 1: Just set a simple time quickly
+    void setAlarm(String time) {
+        System.out.println("Alarm locked in for " + time + " tomorrow morning.");
+    }
+
+    // Version 2: Fully customized alarm setup
+    void setAlarm(String time, String label, boolean isRecurring) {
+        System.out.println("Custom Alarm set for " + time + " | Title: [" + label + "] | Repeat Daily: " + isRecurring);
+    }
+}
+
+public class PhoneClock {
+    public static void main(String[] args) {
+        AlarmManager clock = new AlarmManager();
+        
+        // Standard setup
+        clock.setAlarm("06:00 AM");
+        
+        // Detailed routine setup
+        clock.setAlarm("08:00 AM", "Hit the Gym", true);
+    }
+}
