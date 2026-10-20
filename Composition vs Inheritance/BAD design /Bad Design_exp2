@@ -18,3 +18,7 @@ public class BikeVehicle extends Vehicle {
         return "Petrol";
     }
 }
+
+
+ Notice: if we now add ElectricCar, ElectricBike, HybridCar, etc.,
+each needs its own subclass — 6+ classes for 3 vehicle types × 3 engine types. This explodes quickly.
