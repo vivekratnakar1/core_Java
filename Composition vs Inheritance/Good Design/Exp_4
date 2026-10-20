@@ -1,0 +1,16 @@
+package com.example.delivery.composition;
+
+/**
+ * Capability interface — anything that can deliver an order.
+ *
+ * <p>Kept separate from {@code DeliveryVehicle} so future agent types
+ * (drones, robots) can also be "Deliverable" without sharing a class hierarchy.
+ */
+public interface Deliverable {
+
+    /** Deliver the order to the given address. */
+    void deliver(String orderId, String address);
+
+    /** Current delivery capacity in kilograms. */
+    double capacityKg();
+}
