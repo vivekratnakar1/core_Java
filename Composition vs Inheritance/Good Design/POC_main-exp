@@ -1,0 +1,74 @@
+package com.example.delivery.composition;
+
+import java.util.Objects;
+
+/**
+ * ✅ THE KEY CLASS — a {@code DeliveryVehicle} HAS-A {@link Engine}, rather
+ * than extending an engine-specific base class.
+ *
+ * <p>Benefits:
+ * <ul>
+ *   <li>Add {@code HybridEngine} → no change needed here.</li>
+ *   <li>{@link Engine} can be swapped at runtime via {@link #replaceEngine(Engine)}.</li>
+ *   <li>Trivially testable — pass a mock {@code Engine}.</li>
+ *   <li>No Liskov violations — every vehicle works with every engine.</li>
+ * </ul>
+ *
+ * <p>This is <b>composition</b>: the vehicle <i>delegates</i> engine
+ * behaviour to an injected strategy object.
+ */
+public class DeliveryVehicle implements Deliverable {
+
+    private final String registrationNumber;
+    private final String type;           // "Bike" or "Car"
+    private final double capacityKg;
+
+    /** 🔑 Composition happens here — the engine is a field, not a superclass. */
+    private Engine engine;
+
+    public DeliveryVehicle(String registrationNumber,
+                           String type,
+                           double capacityKg,
+                           Engine engine) {
+        this.registrationNumber = Objects.requireNonNull(registrationNumber);
+        this.type = Objects.requireNonNull(type);
+        this.capacityKg = capacityKg;
+        this.engine = Objects.requireNonNull(engine);
+    }
+
+    /**
+     * Swap the engine at runtime — impossible with inheritance.
+     * Example: upgrade a petrol bike to electric at the service center.
+     */
+    public void replaceEngine(Engine newEngine) {
+        this.engine.stop();
+        this.engine = Objects.requireNonNull(newEngine);
+        System.out.println("  [Vehicle " + registrationNumber + "] Engine replaced → "
+                + newEngine.fuelType());
+    }
+
+    @Override
+    public void deliver(String orderId, String address) {
+        engine.start();
+        System.out.println("  [" + type + " " + registrationNumber + "] Delivering order "
+                + orderId + " to " + address + " using " + engine.fuelType());
+        engine.stop();
+    }
+
+    @Override
+    public double capacityKg() {
+        return capacityKg;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Engine getEngine() {
+        return engine;
+    }
+}
