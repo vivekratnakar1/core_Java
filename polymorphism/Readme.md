@@ -1,9 +1,7 @@
 # 🎭 Understanding Java Polymorphism (Made Simple)
 
 Polymorphism is a fancy Greek word that means **"many forms."** In Java, it simply means that **one action can do different things depending on the object doing it.**
-
 ---
-
 ## 🛠️ The 2 Types of Polymorphism
 
 ### 1. Compile-Time Polymorphism (Method Overloading)
@@ -57,13 +55,9 @@ public class Main {
     }
 }
 ```
-
 ---
-
 ## 💡 Quick Rules to Remember
 
 1. **Use `@Override`:** Always put this tag above your method in the child class so Java knows you are changing a parent's method on purpose.
 2. **Parent Reference:** Notice how we wrote `Animal myDog = new Dog();`. You can save any child object into a parent variable. This is the secret trick to making polymorphism work!
 
----
-*Created for clear and simple learning.*
