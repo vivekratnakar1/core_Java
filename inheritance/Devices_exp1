@@ -1,0 +1,34 @@
+// Feature 1: Video Surveillance Capabilities
+interface Camera {
+    void recordVideo();
+    void streamLiveFeed();
+}
+
+// Feature 2: Illumination Capabilities
+interface Light {
+    void turnOn();
+    void adjustBrightness(int level);
+}
+
+// Combined Object inheriting from both domains
+class SmartFloodlightCamera implements Camera, Light {
+    @Override
+    public void recordVideo() {
+        System.out.println("Recording HD video upon motion detection...");
+    }
+
+    @Override
+    public void streamLiveFeed() {
+        System.out.println("Streaming live feed to the mobile application.");
+    }
+
+    @Override
+    public void turnOn() {
+        System.out.println("Floodlight turned ON at night.");
+    }
+
+    @Override
+    public void adjustBrightness(int level) {
+        System.out.println("Brightness adjusted to " + level + "%.");
+    }
+}
