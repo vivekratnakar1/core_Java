@@ -1,0 +1,73 @@
+// ==========================================
+// 1. PARENT CLASS
+// ==========================================
+class Animal {
+    // This is the base method that child classes will override
+    public void makeSound() {
+        System.out.println("The animal makes a sound");
+    }
+
+    // COMPILE-TIME POLYMORPHISM (Method Overloading)
+    // Same method name, but different parameters (inputs)
+    public void makeSound(int times) {
+        for (int i = 0; i < times; i++) {
+            System.out.print("Generic Sound... ");
+        }
+        System.out.println();
+    }
+}
+
+// ==========================================
+// 2. CHILD CLASS 1
+// ==========================================
+class Dog extends Animal {
+    // RUNTIME POLYMORPHISM (Method Overriding)
+    // Changing how the parent's method works specifically for a Dog
+    @Override
+    public void makeSound() {
+        System.out.println("The dog says: Woof! 🐶");
+    }
+}
+
+// ==========================================
+// 3. CHILD CLASS 2
+// ==========================================
+class Cat extends Animal {
+    // RUNTIME POLYMORPHISM (Method Overriding)
+    // Changing how the parent's method works specifically for a Cat
+    @Override
+    public void makeSound() {
+        System.out.println("The cat says: Meow! 🐱");
+    }
+}
+
+// ==========================================
+// 4. MAIN EXECUTION CLASS
+// ==========================================
+public class Main {
+    public static void main(String[] args) {
+        
+        System.out.println("--- 1. Testing Compile-Time Polymorphism (Overloading) ---");
+        Animal genericAnimal = new Animal();
+        genericAnimal.makeSound();        // Calls version with no parameters
+        genericAnimal.makeSound(3);       // Calls version with an integer parameter
+
+        System.out.println("\n--- 2. Testing Runtime Polymorphism (Overriding) ---");
+        // Secret Trick: Using Parent References to hold Child Objects
+        Animal myDog = new Dog();
+        Animal myCat = new Cat();
+
+        // Even though both references are of type 'Animal', 
+        // Java looks at the actual object type at runtime and runs the specific code!
+        myDog.makeSound(); // Prints: The dog says: Woof! 🐶
+        myCat.makeSound(); // Prints: The cat says: Meow! 🐱
+
+        System.out.println("\n--- 3. Real-World Benefit: Collections of Mixed Types ---");
+        // Because of polymorphism, you can store different child objects in a single Parent array
+        Animal[] zoo = { new Dog(), new Cat(), new Dog() };
+
+        for (Animal animal : zoo) {
+            animal.makeSound(); // Automatically runs the correct sound for each animal!
+        }
+    }
+}
