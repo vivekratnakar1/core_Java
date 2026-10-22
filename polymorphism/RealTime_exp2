@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// 1. The Parent Interface (The Blueprint)
+interface NotificationChannel {
+    void sendNotification(String userId, String message);
+}
+
+// 2. Subclass 1: Third-Party SMS Provider Integration (e.g., Twilio)
+class SmsChannel implements NotificationChannel {
+    @Override
+    public void sendNotification(String userId, String message) {
+        System.out.println("[SMS ALERT] Routing to Telephony Gateway...");
+        System.out.println("-> Sent SMS to User " + userId + ": \"" + message + "\"");
+    }
+}
+
+// 3. Subclass 2: Corporate Email Server Integration (e.g., AWS SES)
+class EmailChannel implements NotificationChannel {
+    @Override
+    public void sendNotification(String userId, String message) {
+        System.out.println("[EMAIL ALERT] Connecting to SMTP Server...");
+        System.out.println("-> Sent Email to User " + userId + ": \"" + message + "\"");
+    }
+}
+
+// 4. Subclass 3: Instant Messenger Integration (e.g., WhatsApp Business API)
+class WhatsAppChannel implements NotificationChannel {
+    @Override
+    public void sendNotification(String userId, String message) {
+        System.out.println("[WHATSAPP ALERT] Hitting Meta Cloud API Endpoint...");
+        System.out.println("-> Sent WhatsApp message to User " + userId + ": \"" + message + "\"");
+    }
+}
+
+// 5. The Central Enterprise Engine (The Orchestrator)
+public class NotificationEngine {
+    public static void main(String[] args) {
+        // Create a list using the Parent Interface type
+        List<NotificationChannel> activeChannels = new ArrayList<>();
+
+        // Polymorphism at work: Adding different child objects into the parent list
+        activeChannels.add(new SmsChannel());
+        activeChannels.add(new EmailChannel());
+        activeChannels.add(new WhatsAppChannel());
+
+        String criticalUser = "USR_9942";
+        String alertMessage = "Your security OTP code is 482103. Do not share it.";
+
+        System.out.println("=== STARTING MULTI-CHANNEL BROADCAST ===");
+
+        // The Engine treats every item exactly the same way
+        for (NotificationChannel channel : activeChannels) {
+            // Polymorphism decides WHICH method to run at runtime
+            channel.sendNotification(criticalUser, alertMessage);
+            System.out.println("----------------------------------------");
+        }
+        
+        System.out.println("=== BROADCAST COMPLETED SUCCESSFULLY ===");
+    }
+}
