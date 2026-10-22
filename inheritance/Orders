@@ -1,0 +1,38 @@
+// System Behavior 1: Traditional Inventory Item
+interface Purchasable {
+    double getPrice();
+    void processPayment();
+}
+
+// System Behavior 2: Virtual/Online Item
+interface DigitalDelivery {
+    void sendViaEmail(String emailId);
+    void generateActivationCode();
+}
+
+// Combined Entity inheriting properties of both commercial domains
+class DigitalGiftCard implements Purchasable, DigitalDelivery {
+    private double balance;
+    
+    public DigitalGiftCard(double balance) {
+        this.balance = balance;
+    }
+
+    @Override
+    public double getPrice() { return this.balance; }
+
+    @Override
+    public void processPayment() {
+        System.out.println("Processing secure payment of INR " + this.balance);
+    }
+
+    @Override
+    public void sendViaEmail(String emailId) {
+        System.out.println("Gift card voucher dispatched instantly to: " + emailId);
+    }
+
+    @Override
+    public void generateActivationCode() {
+        System.out.println("Secure cryptographic redemption token generated.");
+    }
+}
