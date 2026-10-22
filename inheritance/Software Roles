@@ -1,0 +1,35 @@
+// Work Profile 1: Technical Engineering duties
+interface Developer {
+    void writeCode();
+    void reviewPullRequests();
+}
+
+// Work Profile 2: Project Management duties
+interface ProjectManager {
+    void assignTasks();
+    void conductSprintReview();
+}
+
+// The Employee who fulfills both roles simultaneously
+class TechnicalLead implements Developer, ProjectManager {
+    
+    @Override
+    public void writeCode() {
+        System.out.println("Writing core software architecture templates...");
+    }
+
+    @Override
+    public void reviewPullRequests() {
+        System.out.println("Approving bug fixes submitted by junior engineers.");
+    }
+
+    @Override
+    public void assignTasks() {
+        System.out.println("Allocating user stories in Jira for the current sprint.");
+    }
+
+    @Override
+    public void conductSprintReview() {
+        System.out.println("Presenting feature updates to international stakeholders.");
+    }
+}
