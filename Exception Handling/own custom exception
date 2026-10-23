@@ -1,0 +1,52 @@
+>> In real applications, built-in exceptions do not always describe the business problem clearly.
+  >> Create InsufficientBalanceException.java:
+-----------------------------------------------------------------------------------------------------------
+
+public class InsufficientBalanceException
+        extends RuntimeException {
+
+    public InsufficientBalanceException(String message) {
+        super(message);
+    }
+}
+
+public class Main {
+
+    static void withdraw(double balance, double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException(
+                "Withdrawal amount must be positive"
+            );
+        }
+
+        if (amount > balance) {
+            throw new InsufficientBalanceException(
+                "Insufficient balance"
+            );
+        }
+
+        System.out.println("Withdrawal successful");
+    }
+
+    public static void main(String[] args) {
+        try {
+            withdraw(1000, 1500);
+        } catch (InsufficientBalanceException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+                                                                        
+                                                                        o/p
+                                                                        Insufficient balance
+
+                                                      -------------------------------------------------------------
+
+What did we achieve?
+- We created a meaningful business exception.
+- We separated business validation from exception handling.
+- We handled the exception at the appropriate calling level.
+                              A custom exception can extend RuntimeException or Exception,
+                              depending on whether you want it to be unchecked or checked. 
+                              Business exceptions are often unchecked in modern Spring Boot applications.
