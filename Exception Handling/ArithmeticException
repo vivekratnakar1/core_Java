@@ -27,3 +27,9 @@ public class Main {
         System.out.println("Program continues...");
     }
 }
+
+
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+
+
+Notice that "Transaction completed" is never printed.
