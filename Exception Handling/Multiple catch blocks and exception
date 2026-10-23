@@ -1,0 +1,33 @@
+public class Main {
+    public static void main(String[] args) {
+        try {
+            String value = "abc";
+            int number = Integer.parseInt(value);
+
+            int result = 100 / number;
+            System.out.println(result);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid numeric input");
+
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero");
+
+        } catch (Exception e) {
+            System.out.println("Unexpected error");
+        }
+    }
+}
+
+----------------------------------------------------------------------------
+
+The catch blocks are checked from top to bottom. More specific exception types must appear before broader types that would otherwise catch them.
+
+Three useful methods:
+Method	                                    Purpose
+e.getMessage()              	Returns the exception message
+e.toString()            	Returns the exception class name and message
+e.printStackTrace()      	Prints exception details and the call stack
+
+-----------------------------------------------------------------------------------------------------------
+
