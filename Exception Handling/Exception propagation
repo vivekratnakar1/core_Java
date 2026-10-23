@@ -1,0 +1,28 @@
+>> Exception propagation
+    >> 
+
+public class Main {
+
+    static void calculate() {
+        int result = 10 / 0;
+    }
+
+    static void service() {
+        calculate();
+    }
+
+    public static void main(String[] args) {
+        try {
+            service();
+        } catch (ArithmeticException e) {
+            System.out.println("Handled in main()");
+        }
+    }
+}
+
+o/p---------
+Handled in main()
+
+--------------------------------------------------------------------------
+##  Backend connection: In Spring Boot, a service exception can propagate through a 
+  ## controller and be handled by a global exception handler such as one implemented with @RestControllerAdvice.
