@@ -1,0 +1,20 @@
+## >> How exception handling works in Spring Boot ??
+
+Suppose your REST API receives a request to withdraw ₹1,500 from an account with a balance of ₹1,000.
+
+A sensible flow is:
+1. Controller receives the HTTP request.
+2. Service validates the withdrawal and throws InsufficientBalanceException.
+3. @RestControllerAdvice catches the exception centrally.
+4. The API returns a suitable HTTP response, such as 400 Bad Request for a request that violates your API's business rules.
+                    -----------------------------
+This avoids duplicating try-catch blocks in every controller. 
+  The exact status code should follow your API contract;
+    some applications use a different status for particular business conflicts.
+
+                  --------------------------------
+
+The important distinction is that Java exception handling is the foundation,
+while Spring Boot provides application-level mechanisms for translating exceptions into HTTP responses.
+                  -----------------------------------
+
