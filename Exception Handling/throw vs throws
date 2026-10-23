@@ -1,0 +1,57 @@
+This is one of the most frequently asked Java interview questions.
+
+throw	                                            throws
+Throws an exception object explicitly.      	Declares possible exceptions in a method signature.
+Used inside a method or block.              	Used in a method declaration.
+Followed by an exception object.	            Followed by exception class names.
+
+------------------------------------------------------------------------------------------------
+exp of throw :--------------
+
+public class Main {
+    static void checkAge(int age) {
+        if (age < 18) {
+            throw new IllegalArgumentException(
+                "Age must be at least 18"
+            );
+        }
+
+        System.out.println("Eligible");
+    }
+
+    public static void main(String[] args) {
+        checkAge(15);
+    }
+}
+-------------------------------------------------------------------------------------------------
+
+exp of Throws :-------------
+
+import java.io.IOException;
+
+public class Main {
+    static void readFile() throws IOException {
+        throw new IOException("File could not be read");
+    }
+
+    public static void main(String[] args) {
+        try {
+            readFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+-------------------------------------------------------------------------------------------------------
+throws IOException declares that the method may pass an IOException to its caller. It does not itself throw the exception.
+
+
+
+
+
+
+
+
+
+
