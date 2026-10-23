@@ -1,0 +1,27 @@
+Catching Exception everywhere
+
+This can hide the actual problem. Catch the most specific exception you can meaningfully handle.
+
+
+##
+Empty catch blocks
+catch (Exception e) {
+}
+ 
+This silently discards failures and makes debugging difficult.
+
+ 
+Using exceptions for ordinary business decisions
+
+If a value can be validated normally, validate it first. Exceptions should not replace routine control flow.
+
+
+
+Losing the original cause
+
+When wrapping an exception, preserve its cause where appropriate:
+
+##
+throw new RuntimeException(
+    "Unable to process order", e
+);
