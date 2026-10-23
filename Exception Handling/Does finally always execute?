@@ -1,0 +1,23 @@
+Does finally always execute?
+
+>> In ordinary control flow, it executes whether an exception occurs or not
+    >> However, it is not an absolute guarantee: abrupt JVM termination, for example, can prevent it from running.
+
+## Java automatically closes the BufferedReader when the try block exits.
+----------------------------------------------------------------------------------------------------------------------------------
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader reader =
+                 new BufferedReader(new FileReader("data.txt"))) {
+
+            System.out.println(reader.readLine());
+
+        } catch (IOException e) {
+            System.out.println("Unable to read file");
+        }
+    }
+}
