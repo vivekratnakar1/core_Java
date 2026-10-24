@@ -1,0 +1,46 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class InstanceVsClassPoC {
+    // Instance variable (unique per object)
+    private int instanceCounter = 0;
+    
+    // Class variable (shared across all instances)
+    private static int globalStaticCounter = 0;
+
+    // Instance-level lock: Locks 'this' specific object instance
+    public synchronized void incrementInstance() {
+        instanceCounter++;
+    }
+
+    // Class-level lock: Locks 'InstanceVsClassPoC.class'
+    public static synchronized void incrementStaticGlobal() {
+        globalStaticCounter++;
+    }
+
+    public static void main(String[] args) {
+        // Create two distinctly different object instances
+        InstanceVsClassPoC objA = new InstanceVsClassPoC();
+        InstanceVsClassPoC objB = new InstanceVsClassPoC();
+
+        int operations = 1000;
+
+        try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
+            for (int i = 0; i < operations; i++) {
+                // Scenario 1: Threads target different objects. 
+                // They do NOT block each other because their locks ('this') are different!
+                executor.submit(objA::incrementInstance);
+                executor.submit(objB::incrementInstance);
+
+                // Scenario 2: Threads call a static synchronized method.
+                // Every thread targets the same class monitor, guaranteeing safe aggregation.
+                executor.submit(InstanceVsClassPoC::incrementStaticGlobal);
+            }
+        }
+
+        System.out.println("=== Scope Test Results ===");
+        System.out.println("Object A Instance Counter: " + objA.instanceCounter + " (Targeted safe execution)");
+        System.out.println("Object B Instance Counter: " + objB.instanceCounter + " (Targeted safe execution)");
+        System.out.println("Global Static Counter (Expected " + (operations) + "): " + globalStaticCounter);
+    }
+}
