@@ -1,0 +1,52 @@
+## This example models a classic banking transfer system
+    ##  where two threads attempt to move money between accounts simultaneously, but in reverse directions.
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class DeadlockPoC {
+
+    static class Account {
+        private final String name;
+        private int balance = 1000;
+
+        public Account(String name) {
+            this.name = name;
+        }
+    }
+
+    public static void transfer(Account from, Account to, int amount) {
+        // Thread acquires lock on the first account
+        synchronized (from) {
+            System.out.println(Thread.currentThread().getName() + " acquired lock on: " + from.name);
+            
+            // Artificial delay to guarantee the other thread catches up and causes a deadlock
+            try { Thread.sleep(50); } catch (InterruptedException ignored) {}
+
+            System.out.println(Thread.currentThread().getName() + " waiting to lock: " + to.name);
+            // Thread attempts to acquire lock on the second account
+            synchronized (to) {
+                from.balance -= amount;
+                to.balance += amount;
+                System.out.println("Transfer successful!");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Account checking = new Account("Checking Account");
+        Account savings = new Account("Savings Account");
+
+        try (ExecutorService executor = Executors.newFixedThreadPool(2)) {
+            // Thread 1: Wants to move money from Checking -> Savings
+            executor.submit(() -> transfer(checking, savings, 100));
+
+            // Thread 2: Simultaneously wants to move money from Savings -> Checking
+            executor.submit(() -> transfer(savings, checking, 50));
+        } 
+        
+        // The program will hang here forever. The ExecutorService cannot terminate because 
+        // both threads are trapped in a dead embrace waiting for each other's locks.
+        System.out.println("This print statement will never be reached!");
+    }
+}
