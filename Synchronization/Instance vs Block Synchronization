@@ -1,0 +1,64 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class InstanceVsBlockPoC {
+    private int methodCounter = 0;
+    private int blockCounter = 0;
+    
+    private final Object customLock = new Object();
+
+    // Strategy 1: Locks the entire instance ('this')
+    // While a thread executes this, NO OTHER synchronized instance method can run on this object
+    public synchronized void incrementMethod() {
+        try {
+            Thread.sleep(10); // Simulate expensive work inside the lock
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        methodCounter++;
+    }
+
+    // Strategy 2: Locks only the critical section using a dedicated object
+    // Allows independent, fine-grained thread execution
+    public void incrementBlock() {
+        // Simulating heavy, non-critical database/API work OUTSIDE the lock
+        try {
+            Thread.sleep(10); 
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        synchronized (customLock) {
+            blockCounter++; // Only the actual state mutation is locked
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        InstanceVsBlockPoC poc = new InstanceVsBlockPoC();
+        int threads = 20;
+        
+        // --- Test Strategy 1: Coarse Method Locking ---
+        long startMethod = System.currentTimeMillis();
+        try (ExecutorService executor = Executors.newFixedThreadPool(threads)) {
+            for (int i = 0; i < threads; i++) {
+                executor.submit(poc::incrementMethod);
+            }
+        } // Auto-closes and awaits termination in modern Java
+        long endMethod = System.currentTimeMillis();
+
+        // --- Test Strategy 2: Fine-Grained Block Locking ---
+        long startBlock = System.currentTimeMillis();
+        try (ExecutorService executor = Executors.newFixedThreadPool(threads)) {
+            for (int i = 0; i < threads; i++) {
+                executor.submit(poc::incrementBlock);
+            }
+        }
+        long endBlock = System.currentTimeMillis();
+
+        System.out.println("=== Execution Metrics ===");
+        System.out.println("Method-level sync time: " + (endMethod - startMethod) + " ms (Sequential overhead)");
+        System.out.println("Block-level sync time:  " + (endBlock - startBlock) + " ms (Concurrent setup overhead minimized)");
+        System.out.println("\nFinal Counters -> Method: " + poc.methodCounter + " | Block: " + poc.blockCounter);
+    }
+}
