@@ -62,3 +62,11 @@ public class InstanceVsBlockPoC {
         System.out.println("\nFinal Counters -> Method: " + poc.methodCounter + " | Block: " + poc.blockCounter);
     }
 }
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Why This is an Important PoC
+
+• The Dead Embrace: Thread 1 locks checking and waits for savings. 
+Thread 2 locks savings and waits for checking. Neither can proceed, and neither will release the lock they currently hold.
+• Production Danger: Deadlocks do not throw exceptions. They silent-kill systems by exhausting application threads until the server completely stops responding.
