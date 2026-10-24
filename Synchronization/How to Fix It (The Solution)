@@ -1,0 +1,21 @@
+## How to Fix It (The Solution)
+
+  ## To break a deadlock using synchronized, you must enforce a strict, global lock ordering. We can use the object's unique system memory identity (System.identityHashCode) to
+    #  ensure that regardless of the parameters passed, the locks are always acquired in the exact same sequence.
+
+public static void safeTransfer(Account from, Account to, int amount) {
+    int fromHash = System.identityHashCode(from);
+    int toHash = System.identityHashCode(to);
+
+    // Establish deterministic order
+    Object firstLock = fromHash < toHash ? from : to;
+    Object secondLock = fromHash < toHash ? to : from;
+
+    synchronized (firstLock) {
+        synchronized (secondLock) {
+            from.balance -= amount;
+            to.balance += amount;
+            System.out.println(Thread.currentThread().getName() + " completed transfer safely.");
+        }
+    }
+}
