@@ -1,0 +1,83 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class SynchronizationPoC {
+
+    private int synchronizedCounter = 0;
+    private int lockCounter = 0;
+    
+    private final Object syncLock = new Object();
+    private final Lock explicitLock = new ReentrantLock();
+
+    // 1. Using Implicit Synchronization
+    public void incrementWithSynchronized() {
+        synchronized (syncLock) {
+            synchronizedCounter++;
+        }
+    }
+
+    // 2. Using Explicit ReentrantLock
+    public void incrementWithLock() {
+        explicitLock.lock();
+        try {
+            lockCounter++;
+        } finally {
+            // Always release the lock in a finally block to prevent deadlocks
+            explicitLock.unlock(); 
+        }
+    }
+
+    // 3. Demonstrating Advanced Feature: Non-blocking tryLock()
+    public void tryLockDemo() {
+        if (explicitLock.tryLock()) {
+            try {
+                System.out.println(Thread.currentThread().getName() + " acquired the lock successfully!");
+                Thread.sleep(50); // Simulate some work
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                explicitLock.unlock();
+            }
+        } else {
+            System.out.println(Thread.currentThread().getName() + " found the lock busy. Doing alternative work.");
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        SynchronizationPoC poc = new SynchronizationPoC();
+        int taskCount = 1000;
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+        // Run standard synchronization and explicit lock tasks concurrently
+        for (int i = 0; i < taskCount; i++) {
+            executor.submit(poc::incrementWithSynchronized);
+            executor.submit(poc::incrementWithLock);
+        }
+
+        // Run the tryLock demo concurrently to show instant feedback when a lock is busy
+        System.out.println("--- Starting tryLock() Demo ---");
+        executor.submit(poc::tryLockDemo);
+        executor.submit(poc::tryLockDemo);
+
+        executor.shutdown();
+        executor.awaitTermination(5, TimeUnit.SECONDS);
+
+        System.out.println("\n--- Final Results ---");
+        System.out.println("Synchronized Counter Total (Expected " + taskCount + "): " + poc.synchronizedCounter);
+        System.out.println("Explicit Lock Counter Total (Expected " + taskCount + "): " + poc.lockCounter);
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+
+Key Differences Illustrated in the PoC
+
+• Error Safety: In incrementWithLock(), the unlock() call is explicitly placed inside a finally block. 
+If an unexpected runtime exception happens during lockCounter++, the lock is still safely released. synchronized handles this automatically behind the scenes.
+• Flexibility (tryLock): The tryLockDemo() showcases a feature impossible with the synchronized keyword. 
+If a thread finds the lock occupied, it immediately skips the block or runs an else branch instead of blocking/freezing the thread indefinitely.
+
+
+
