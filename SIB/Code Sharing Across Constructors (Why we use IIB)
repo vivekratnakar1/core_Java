@@ -1,0 +1,55 @@
+This POC shows how an IIB prevents code duplication. Instead of copying a tracking ID generation
+    system into every constructor, the IIB handles it automatically for all of them.
+
+public class UserRegistration {
+    private String username;
+    private String userType;
+    private double uniqueTrackingID;
+
+    // Instance Initialization Block (IIB)
+    {
+        System.out.println("[IIB] Generating a unique session tracking ID for the user...");
+        this.uniqueTrackingID = Math.random();
+    }
+
+    // Constructor 1: For Standard Users
+    public UserRegistration(String username) {
+        this.username = username;
+        this.userType = "Standard";
+        System.out.println("[Constructor] Standard user initialized.");
+    }
+
+    // Constructor 2: For Premium Users
+    public UserRegistration(String username, String userType) {
+        this.username = username;
+        this.userType = userType;
+        System.out.println("[Constructor] Premium user initialized.");
+    }
+
+    public void displayDetails() {
+        System.out.println("User: " + username + " | Type: " + userType + " | ID: " + uniqueTrackingID + "\n");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("[Main] Registering users...\n");
+
+        UserRegistration user1 = new UserRegistration("Alice");
+        user1.displayDetails();
+
+        UserRegistration user2 = new UserRegistration("Bob", "Admin");
+        user2.displayDetails();
+    }
+}
+
+
+o//p
+
+[Main] Registering users...
+
+[IIB] Generating a unique session tracking ID for the user...
+[Constructor] Standard user initialized.
+User: Alice | Type: Standard | ID: 0.4578129384
+
+[IIB] Generating a unique session tracking ID for the user...
+[Constructor] Premium user initialized.
+User: Bob | Type: Admin | ID: 0.8912304912
