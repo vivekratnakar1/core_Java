@@ -1,0 +1,36 @@
+This POC shows how a SIB is used to pre-load configuration values or complex settings 
+(like database URLs or allowed features) right when the class loads, before any object is made.
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class AppConfig {
+    // Class-level static map
+    public static Map<String, String> settings = new HashMap<>();
+
+    // Static Initialization Block (SIB)
+    static {
+        System.out.println("[SIB] Loading system configurations into memory...");
+        
+        // Complex logic that you can't do in a single line
+        settings.put("db_url", "jdbc:mysql://localhost:3306/prod_db");
+        settings.put("timeout", "5000");
+        settings.put("environment", "PRODUCTION");
+        
+        System.out.println("[SIB] Configuration successfully loaded.\n");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("[Main] App started.");
+        System.out.println("[Main] DB URL is: " + AppConfig.settings.get("db_url"));
+    }
+}
+
+
+--o/p
+[SIB] Loading system configurations into memory...
+[SIB] Configuration successfully loaded.
+
+[Main] App started.
+[Main] DB URL is: jdbc:mysql://localhost:3306/prod_db
