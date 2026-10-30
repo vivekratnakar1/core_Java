@@ -1,0 +1,38 @@
+Secure Cloud Configuration & Cache Pre-loading (How MNCs use SIB)
+//
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CloudConfigManager {
+    // Thread-safe unmodifiable map for enterprise security
+    public static final Map<String, String> ENV_CONFIGS;
+
+    // Static Initialization Block (SIB)
+    static {
+        System.out.println("[SIB] Initializing bootstrap configurations...");
+        Map<String, String> temporaryMap = new HashMap<>();
+        
+        try {
+            // Simulated retrieval from AWS Secrets Manager or HashiCorp Vault
+            System.out.println("[SIB] Fetching encrypted credentials from AWS Vault...");
+            temporaryMap.put("API_GATEWAY_URL", "https://mnc.com");
+            temporaryMap.put("OAUTH_TOKEN_EXPIRY", "3600");
+            temporaryMap.put("LOG_LEVEL", "DEBUG");
+            
+            System.out.println("[SIB] Enterprise cache successfully pre-loaded.");
+        } catch (Exception ex) {
+            // MNC Best Practice: Critical alerts are captured if the SIB fails during bootup
+            System.err.println("[CRITICAL ALERT] Failed to bootstrap application configs: " + ex.getMessage());
+            // Fallback strategy or graceful shutdown trigger goes here
+        } finally {
+            // Ensuring the class data becomes read-only and safely exposed
+            ENV_CONFIGS = Collections.unmodifiableMap(temporaryMap);
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("\n[Main] Application Gateway is fully operational.");
+        System.out.println("[Main] Target Routing Endpoint: " + CloudConfigManager.ENV_CONFIGS.get("API_GATEWAY_URL"));
+    }
+}
